@@ -1,0 +1,128 @@
+$poss: t c e;
+$positions: start center end;
+$flexPositions: flex-start center flex-end;
+
+.grid {
+  $gridSize: 12;
+
+  display: grid;
+  gap: 1.09375rem;
+  grid-template-columns: repeat($gridSize, 1fr);
+
+  &.inline {
+    display: inline-grid;
+    grid-template-columns: initial;
+    &.default {
+      gap: 1.09375rem;
+      grid-template-columns: repeat($gridSize, 1fr);
+    }
+  }
+
+  .span {
+    @for $i from 1 through $gridSize {
+      &-#{$i} {
+        grid-column: span $i;
+      }
+    }
+  }
+  .span-row {
+    @for $i from 1 through $gridSize {
+      &-#{$i} {
+        grid-row: span $i;
+      }
+    }
+  }
+
+
+  @each $pos in $poss {
+    $i: index($poss, $pos);
+
+    &.g-#{$pos} {
+      align-items: nth($positions, $i);
+    }
+
+    .gs-#{$pos} {
+      align-self: nth($positions, $i);
+    }
+
+    .gs-j#{$pos} {
+      justify-self: nth($positions, $i);
+    }
+    .gsc-#{$pos} {
+      align-content: nth($positions, $i);
+    }
+  }
+
+  .gs-base {
+    align-self: baseline;
+  }
+
+  $sizes: xs s m l xl;
+
+  @each $size in $sizes {
+    @include screen('#{$size}') {
+      .span-0-#{$size} {
+        grid-column: span 0;
+        display: none;
+      }
+
+      .span {
+        @for $i from 1 through $gridSize {
+          &-#{$i}-#{$size} {
+            grid-column: span $i;
+          }
+        }
+      }
+      .span-row {
+        @for $i from 1 through $gridSize {
+          &-#{$i}-#{$size} {
+            grid-row: span $i;
+          }
+        }
+      }
+
+      @each $pos in $poss {
+        $i: index($poss, $pos);
+
+        &.g-#{$pos}-#{$size} {
+          align-items: nth($positions, $i);
+        }
+      }
+    }
+  }
+}
+
+.flex {
+  display: flex;
+
+  @each $pos in $poss {
+    $i: index($poss, $pos);
+
+    &.f-#{$pos} {
+      align-items: nth($flexPositions, $i);
+    }
+
+    &.fj-#{$pos} {
+      justify-items: nth($flexPositions, $i);
+    }
+
+    &.fjc-#{$pos} {
+      justify-content: nth($flexPositions, $i);
+    }
+
+    .fs-#{$pos} {
+      align-self: nth($flexPositions, $i);
+    }
+  }
+  &.f-wrap {
+    flex-wrap: wrap;
+  }
+  &.f-inline {
+    display: inline-flex;
+  }
+  .fs {
+    &-stretch {
+      flex: 1;
+    }
+  }
+}

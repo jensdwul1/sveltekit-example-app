@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
+  <g id="Group_628" data-name="Group 628" transform="translate(-375.241 -934.241)">
+    <rect id="Rectangle_1088" data-name="Rectangle 1088" width="50" height="50" rx="6" transform="translate(375.241 934.241)" fill="#f37820"/>
+    <g id="Group_600" data-name="Group 600" transform="translate(-165.585 205.031)">
+      <g id="Group_629" data-name="Group 629" transform="translate(1 -1)">
+        <g id="Rectangle_1091" data-name="Rectangle 1091" transform="translate(553.826 745.21)" fill="none" stroke="#fff" stroke-width="2">
+          <rect width="23" height="22" rx="3" stroke="none"/>
+          <rect x="1" y="1" width="21" height="20" rx="2" fill="none"/>
+        </g>
+        <line id="Line_86" data-name="Line 86" y2="5" transform="translate(560.326 743.71)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="2"/>
+        <line id="Line_87" data-name="Line 87" y2="5" transform="translate(570.326 743.71)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="2"/>
+        <line id="Line_88" data-name="Line 88" x2="20" transform="translate(555.326 752.71)" fill="none" stroke="#fff" stroke-width="1"/>
+        <line id="Line_89" data-name="Line 89" x2="2" transform="translate(558.326 755.71)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="2"/>
+        <line id="Line_92" data-name="Line 92" x2="2" transform="translate(558.326 758.71)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="2"/>
+        <line id="Line_95" data-name="Line 95" x2="2" transform="translate(558.326 761.71)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="2"/>
+        <line id="Line_90" data-name="Line 90" x2="2" transform="translate(564.064 755.71)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="2"/>
+        <line id="Line_93" data-name="Line 93" x2="2" transform="translate(564.064 758.71)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="2"/>
+        <line id="Line_96" data-name="Line 96" x2="2" transform="translate(564.064 761.71)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="2"/>
+        <line id="Line_91" data-name="Line 91" x2="2" transform="translate(569.802 755.71)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="2"/>
+        <line id="Line_94" data-name="Line 94" x2="2" transform="translate(569.802 758.71)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="2"/>
+        <line id="Line_97" data-name="Line 97" x2="2" transform="translate(569.802 761.71)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="2"/>
+      </g>
+    </g>
+  </g>
+</svg>

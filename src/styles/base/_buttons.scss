@@ -1,0 +1,298 @@
+button,
+.button {
+  background-color: none;
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 0.71875em;
+  line-height: 1rem;
+  height: 2.125rem;
+  min-width: 8.28125rem;
+  font-weight: 400;
+  padding: 0.5em 2em;
+  display: block;
+  margin: 0;
+  border-radius: 0.1875rem;
+  transition: 250ms ease-in all;
+  text-decoration: none;
+  cursor: pointer;
+
+  &.h-a {
+    height: auto;
+  }
+
+  &.inline {
+    display: inline-block;
+    margin: 0;
+  }
+  &--back {
+    &::before {
+      content: "";
+      width: 1rem;
+      height: 1rem;
+      border-radius: 50%;
+      display: block;
+      box-shadow: 0 0 0 0.1875rem white;
+      border: 0.125rem solid var(--app-color-primary-shade);
+      background-color: white;
+      background-image: url('../../img/icons/to.svg');
+      background-repeat: no-repeat;
+      background-size: 0.25rem 0.6875rem;
+      background-position: 0.25rem center;
+      position: absolute;
+      left: -0.8125rem;
+      top: 50%;
+      transform: translate(0, -50%);
+    }
+  }
+  &--to {
+    &::before {
+      content: "";
+      width: 1rem;
+      height: 1rem;
+      border-radius: 50%;
+      display: block;
+      box-shadow: 0 0 0 0.1875rem white;
+      border: 0.125rem solid var(--app-color-primary-shade);
+      background-color: white;
+      background-image: url('../../img/icons/to.svg');
+      background-repeat: no-repeat;
+      background-size: 0.25rem 0.6875rem;
+      background-position: 0.25rem center;
+      position: absolute;
+      right: -0.8125rem;
+      top: 50%;
+      transform: translate(0, -50%);
+    }
+  }
+
+  &.icon,
+  &.round {
+    padding: 0.5em;
+    width: 2.125rem;
+    height: 2.125rem;
+    min-width: auto;
+    line-height: 0.5em;
+    &.mini {
+      width: 1.125rem;
+      height: 1.125rem;
+      padding: 0.25rem;
+    }
+    &.refresh {
+      height: 3.1875rem;
+      width: 3.1875rem;
+      svg,
+      img {
+        width: 1.25rem;
+        height: 1.25rem;
+      }
+
+      &.animating {
+        svg,
+        img {
+          animation: spin 2s ease-in-out infinite;
+        }
+      }
+
+      @keyframes spin {
+        from {
+          transform: rotate(0deg);
+        }
+
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    }
+
+    &.scratch {
+      height: 3.1875rem;
+      width: 3.1875rem;
+      
+      svg,
+      img {
+        fill: white;
+        width: 1.75rem;
+        height: 1.75rem;
+      }
+    }
+  }
+
+  &.icon {
+    padding: 0;
+    svg {
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  &.round {
+    border-radius: 50%;
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &.primary {
+    background: var(--app-color-primary);
+    color: white;
+    fill: white;
+    &:hover,
+    &:active {
+      background: var(--app-color-primary-tint);
+    }
+
+    &-tint {
+      background: var(--app-color-primary-tint);
+      color: white;
+      fill: white;
+
+      &:hover,
+      &:active,
+      &.active {
+        background: var(--app-color-primary);
+      }
+    }
+
+    &-shade {
+      background: var(--app-color-primary-shade);
+      color: white;
+      fill: white;
+
+      &:hover,
+      &:active,
+      &.active {
+        background: var(--app-color-primary);
+      }
+    }
+
+  }
+
+
+  &.light {
+    background: var(--app-color-light);
+
+    &:hover {
+      background: var(--app-color-medium);
+
+    }
+
+    &:active,
+    &.active {
+      background: var(--app-color-dark);
+      color: white;
+      fill: white;
+    }
+  }
+
+  &.dark {
+    background: var(--app-color-black);
+    color: white;
+    fill: white;
+
+    &:hover,
+    &:active {
+      background: var(--app-color-primary-shade);
+    }
+
+  }
+
+  &.outline {
+    background: transparent;
+    border: 1px solid;
+
+    &.primary {
+      border-color: var(--app-color-primary);
+      color: var(--app-color-primary);
+
+      &:hover,
+      &:active {
+        background-color: var(--app-color-primary);
+        color: white;
+        fill: white;
+      }
+
+      &-tint {
+        border-color: var(--app-color-primary-tint);
+        color: var(--app-color-primary-tint);
+
+        &:hover,
+        &:active,
+        &.active {
+          background-color: var(--app-color-primary-tint);
+          color: white;
+          fill: white;
+        }
+      }
+
+      &-shade {
+        border-color: var(--app-color-primary-shade);
+        color: var(--app-color-primary-shade);
+
+        &:hover,
+        &:active,
+        &.active {
+          background-color: var(--app-color-primary-shade);
+          color: white;
+          fill: white;
+        }
+      }
+    }
+
+
+    &.light {
+      border-color: var(--app-color-light);
+
+      &:hover {
+        background-color: var(--app-color-light);
+
+      }
+
+      &:active,
+      &.active {
+        background-color: var(--app-color-dark);
+        color: white;
+        fill: white;
+      }
+    }
+
+    &.dark {
+      border-color: var(--app-color-black);
+      color: white;
+      fill: white;
+
+      &:hover,
+      &:active,
+      &.active {
+        background-color: var(--app-color-black);
+      }
+
+    }
+  }
+
+  &.auto-collapse {
+    min-width: auto;
+  }
+
+  &[disabled] {
+    opacity: 0.25;
+  }
+}
+
+.input-link {
+  cursor: pointer;
+  background: url('../../img/icons/edit.svg') calc(100% - 0.5rem)/1rem no-repeat transparent;
+  border: 1px solid var(--app-color-light-accent);
+  border-radius: 0.375rem;
+  color: var(--app-text-color);
+  width: 100%;
+  padding: 0.25rem 1rem 0.25rem 0.5rem;
+  line-height: 1.5rem;
+  font-size: 0.8em;
+  transition: 250ms ease-in;
+  display: inline-block;
+  &.no-image {
+    background: transparent;
+  } 
+}

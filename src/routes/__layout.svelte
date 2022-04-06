@@ -1,45 +1,22 @@
 <script lang="ts">
-	import Header from '$lib/header/Header.svelte';
-	import '../app.css';
+	import Navigation from '$lib/navigation/Navigation.svelte';
+	import { page } from '$app/stores';
+	import '../app.scss';
 </script>
 
-<Header />
-
-<main>
-	<slot />
+<main class="app">
+	<Navigation />
+	<div class="app-container">
+		<h1 class="flex f-e jc-sb span-11">
+			<span
+				class="w-100 hospital_identifier"
+				tabindex="0">Hospital / Veevä Provided /
+			</span>
+			<span class="pos-r ng-star-inserted"></span>
+		</h1>
+		{#if $page.stuff}
+			STUFF IS FILLED
+		{/if}
+		<slot name="content" />
+	</div>
 </main>
-
-<footer>
-	<p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
-</footer>
-
-<style>
-	main {
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-		padding: 1rem;
-		width: 100%;
-		max-width: 1024px;
-		margin: 0 auto;
-		box-sizing: border-box;
-	}
-
-	footer {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		padding: 40px;
-	}
-
-	footer a {
-		font-weight: bold;
-	}
-
-	@media (min-width: 480px) {
-		footer {
-			padding: 40px 0;
-		}
-	}
-</style>

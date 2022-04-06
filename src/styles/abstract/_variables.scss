@@ -1,0 +1,73 @@
+/**
+* ALL APP STYLE VARIABLES
+*/
+
+:root {
+  --app-color-primary: #00A0DF;
+  --app-color-primary-rgb: 0, 160, 223;
+  --app-color-primary-tint: #F4FBFF;
+  --app-color-primary-tint-rgb: 244, 251, 255;
+  --app-color-primary-shade: #1C75BC;
+  --app-color-primary-shade-rgb: 28, 117, 188;
+  --app-color-primary-gradient: linear-gradient(180deg, rgb(0, 160, 223) 0%, rgb(28, 117, 188) 100%);
+  --app-color-primary-gradient-invert: linear-gradient(0deg, rgb(0, 160, 223) 0%, rgb(28, 117, 188) 100%);
+
+  /** SECONDARY **/
+  --app-color-secondary: #333333;
+  --app-color-secondary-rgb: 51, 51, 51;
+
+  /** TERTIARY **/
+  --app-color-tertiary: #359942;
+  --app-color-tertiary-rgb: 53, 153, 66;
+  --app-color-tertiary-gradient: linear-gradient(180deg, #6EBD44 0%, #359942 100%);
+  --app-color-tertiary-gradient-invert: linear-gradient(0deg, #359942 0%, #6EBD44 100%);
+
+  /** QUADRARY **/
+  --app-color-quadrary: #F37820;
+  --app-color-quadrary-rgb: 243, 120, 66;
+
+  /** SUPPLEMENT **/
+  --app-text-color: #1A1A1A;
+  --app-color-light: #efefef;
+  --app-color-light-accent: #E5E5E5;
+  --app-color-medium: #d6d6d6;
+  --app-color-medium-accent: #B2B2B2;
+  --app-color-dark: #888B8D;
+  --app-color-black: #333333;
+  --app-color-medium-gradient: linear-gradient(180deg, #d6d6d6 0%, #888B8D 100%);
+
+  /** STATUS COLORS **/
+
+  /** success **/
+  --app-color-success: #10dc60;
+  --app-color-success-rgb: 16, 220, 96;
+  --app-color-success-contrast: #ffffff;
+  --app-color-success-contrast-rgb: 255, 255, 255;
+  --app-color-success-shade: #0ec254;
+  --app-color-success-tint: #28e070;
+  --app-color-success-pastel: #E8F4E2;
+
+  /** warning **/
+  --app-color-warning: #ffce00;
+  --app-color-warning-rgb: 255, 206, 0;
+  --app-color-warning-contrast: #ffffff;
+  --app-color-warning-contrast-rgb: 255, 255, 255;
+  --app-color-warning-shade: #e0b500;
+  --app-color-warning-tint: #ffd31a;
+
+  /** danger **/
+  --app-color-danger: #f04141;
+  --app-color-danger-rgb: 245, 61, 61;
+  --app-color-danger-contrast: #ffffff;
+  --app-color-danger-contrast-rgb: 255, 255, 255;
+  --app-color-danger-shade: #d33939;
+  --app-color-danger-tint: #f25454;
+
+  --max-width: 62.5rem;
+}
+
+$breakpoints: ('xs': 599px,
+  's': 600px,
+  'm': 960px,
+  'l': 1280px,
+  'xl': 1920px);
