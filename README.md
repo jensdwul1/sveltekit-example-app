@@ -1,24 +1,21 @@
-# create-svelte
+# An Example app in Sveltekit
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+This app will be a small scale reproduction of an existing application (Spravato Navigator). The basic goal will be to reproduce as much of the core functionality in a small amount of time
 
-## Creating a project
+## Target Features
 
-If you're seeing this, you've probably already done this step. Congrats!
+- [ ] Data Collection
+- [ ] Dashboard
+- [ ] Report Generation
 
-```bash
-# create a new project in the current directory
-npm init svelte@next
 
-# create a new project in my-app
-npm init svelte@next my-app
-```
+## Install
 
-> Note: the `@next` is temporary
+Install dependencies with `npm install` (or `pnpm install` or `yarn`)
 
-## Developing
+## Development
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Start a development server:
 
 ```bash
 npm run dev
@@ -29,7 +26,7 @@ npm run dev -- --open
 
 ## Building
 
-To create a production version of your app:
+To create a production version of the app:
 
 ```bash
 npm run build
