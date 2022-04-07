@@ -32,7 +32,7 @@
   border: 0.0625rem solid var(--app-color-light-accent);
   border-radius: 0.375rem;
   background: var(--app-color-light);
-  background: url('/assets/img/icons/chrevon-down-green.svg') 100% / 2.125rem no-repeat var(--app-color-light);
+  background: url('/img/icons/chrevon-down-green.svg') 100% / 2.125rem no-repeat var(--app-color-light);
   color: var(--app-text-color);
   font-weight: 400;
   width: 100%;
@@ -51,7 +51,7 @@
   &.is-open {
     border-radius: 0.25rem 0.25rem 0 0;
     background: var(--app-color-light);
-    background: url('/assets/img/icons/chrevon-up.svg') 100% / 2.125rem no-repeat var(--app-color-light);
+    background: url('/img/icons/chrevon-up.svg') 100% / 2.125rem no-repeat var(--app-color-light);
   }
   &-wrapper {
     &.dirty {
@@ -156,7 +156,7 @@ input {
     }
 
     &.checked::after {
-      background-image: url('/assets/img/icons/checkbox-check.svg');
+      background-image: url('/img/icons/checkbox-check.svg');
       background-position: center;
       background-repeat: no-repeat;
       background-size: 0.875rem;

@@ -1,4 +1,10 @@
-<svelte:head>
-	<title>Spravato Navigator | NUB</title>
-</svelte:head>
+<script context="module" lang="ts">
+	export async function load({params, fetch}) {
+		return {
+			stuff: {
+				title: 'NUB'
+			}
+		}
+	}
+</script>
 <h1>NUB Home</h1>

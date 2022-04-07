@@ -12,11 +12,14 @@
 	// since there's no dynamic data here, we can prerender
 	// it so that it gets served as a static asset in prod
 	export const prerender = true;
+	export async function load({params, fetch}) {
+		return {
+			stuff: {
+				title: 'About'
+			}
+		}
+	}
 </script>
-
-<svelte:head>
-	<title>About</title>
-</svelte:head>
 
 <div class="content">
 	<h1>About this app</h1>

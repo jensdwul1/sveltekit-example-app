@@ -77,6 +77,12 @@ h1 {
   font-size: 1.56em;
   line-height: 1.36;
   margin-bottom: 0.375em;
+
+  .hospital--identifier {
+    cursor: pointer;
+    font-size: .5em;
+    font-weight: 400;
+  }
 }
 
 h2 {
@@ -267,7 +273,7 @@ a.link {
   &-container {
     width: 100%;
     margin: 0 auto;
-    padding: 0em 1.5625em 0em 1.5625rem;
+    padding: 1.275em 1.5625em;
     display: grid;
     grid-template-rows: auto auto 1fr;
     height: 100%;

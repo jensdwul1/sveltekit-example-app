@@ -8,7 +8,7 @@
   }
 }
 
-input[type]:not([type=hidden]):not([type=range]),
+input[type]:not([type=hidden]):not([type=range]):not([type=checkbox]):not([type=checkbox]):not([type=radio]),
 textarea {
   border: 1px solid var(--app-color-light-accent);
   border-radius: 0.375rem;
@@ -21,9 +21,10 @@ textarea {
   font-size: 0.8em;
   transition: 250ms ease-in;
   -webkit-appearance: none;
+  box-sizing: border-box;
 
   &::placeholder {
-    color: var(--app-color-medium);
+    color: var(--app-text-color);
   }
 
   &:focus {
@@ -82,7 +83,7 @@ textarea {
   }
 
   &[type=date] {
-    background: url('/assets/img/icons/calendar.svg') 0.5rem/1rem no-repeat var(--app-color-light);
+    background: url('/img/icons/calendar.svg') 0.5rem/1rem no-repeat var(--app-color-light);
     padding-left: 2rem;
   }
 
@@ -163,7 +164,7 @@ textarea {
           top: 0.25rem;
           outline: none;
           background-color: transparent;
-          background-image: url('/assets/img/icons/handle.png');
+          background-image: url('/img/icons/handle.png');
           background-size: contain;
           background-color: transparent;
           background-position: center center;
@@ -174,7 +175,7 @@ textarea {
             width: 1.5rem;
             left: -0.125rem;
             top: 1.5rem;
-            background-image: url('/assets/img/icons/handle-pan.png');
+            background-image: url('/img/icons/handle-pan.png');
             background-size: contain;
             background-color: transparent !important;
             background-position: top center;
@@ -213,7 +214,7 @@ textarea {
 }
 
 select {
-  background: url('/assets/img/icons/chrevon-down-green.svg') 100% / 2.125rem no-repeat var(--app-color-light);
+  background: url('/img/icons/chrevon-down-green.svg') 100% / 2.125rem no-repeat var(--app-color-light);
 
   -moz-appearance: none;
   /* Firefox */
@@ -222,32 +223,37 @@ select {
   appearance: none;
 }
 
-.select-wrapper,
+.select--wrapper,
 .select--multi {
     position: relative;
 
     &::after {
         position: absolute;
-        right: 1.25rem;
-        top: 2.5rem;
+        margin-top: -0.25rem;
+        right: 1rem;
+        top: 50%;
         content: '';
-        height: 8px;
-        width: 14px;
-        background-image: url('/Assets/icons/swine-scan/chevron-down-blue.svg');
+        height: 0.5rem;
+        width: 0.875rem;
+        background-image: url('/img/icons/chevron-down-blue.svg');
         background-repeat: no-repeat;
         background-size: contain;
         background-position: center center;
         pointer-events: none;
+        z-index: 15;
+    }
+    &.select--active::after {
+      transform: rotate(180deg);
     }
 }
 
 .select--multi {
     &-options {
-        border: 1px solid get-color('lightblue');
+        border: 1px solid var(--app-color-light);
         border-radius: 0.25rem;
         position: absolute;
         width: 100%;
-        top: 4.375rem;
+        top: 2.675rem;
         background-color: white;
         display: none;
         z-index: 11;
@@ -274,6 +280,10 @@ select {
                 flex: 1;
                 cursor: pointer;
             }
+
+            &-disabled {
+              opacity: 0.5;
+            }
         }
 
         input[type="checkbox"] {
@@ -295,19 +305,22 @@ select {
             display: flex;
             flex-direction: row;
             align-items: baseline;
+            justify-content: space-between;
             background: #f3f8ff;
             border: 1px solid #bfdbed;
             border-radius: 0.25rem;
             color: #006fb7;
             padding: 0.5rem;
+            min-width: auto;
 
-            label {
+            span:not(:last-child) {
                 padding-right: 0.5rem;
                 font-weight: 400;
                 font-size: 0.875rem;
             }
 
             &-img {
+                width: 1rem;
                 height: 0.75rem;
                 position: relative;
                 top: 0.0625rem;
@@ -338,16 +351,16 @@ select {
 
 select,
 .button--select {
-    margin: 1rem 0 2rem;
+    border: 1px solid var(--app-color-light-accent);
+    border-radius: 0.375rem;
+    background: var(--app-color-light);
+    color: var(--app-text-color);
     width: 100%;
-    padding: 0 1.25rem;
-    height: 52px;
-    line-height: 52px;
-    font-family: inherit;
-    font-size: 1rem;
-    border-radius: 4px;
-    border: 1px solid #dfe6e8;
-    background: transparent;
+    padding: 0.25rem 0.5rem;
+    line-height: 1.5rem;
+    min-height: 2rem;
+    font-size: 0.8em;
+    transition: 250ms ease-in;
     transition: 0.2s;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -365,14 +378,13 @@ select,
 }
 
 .button--select {
-    color: rgba(0, 33, 55, 0.4);
     font-weight: 400;
     margin-bottom: 0.5rem;
     z-index: 11;
     
     &.button--active {
         background-color: #dfe6e8;
-        border-color: get-color('lightblue');
+        border-color: var(--app-color-light);
     }
 }
 
@@ -514,7 +526,7 @@ checkbox {
 
       input {
         &:checked~.icon {
-          background-image: url('/assets/img/icons/checkmark-green.svg');
+          background-image: url('/img/icons/checkmark-green.svg');
           background-position: center;
           background-repeat: no-repeat;
           background-size: 1.46875rem;
@@ -536,7 +548,7 @@ checkbox {
       .checkbox {
         input {
           &:checked~.icon {
-            background-image: url('/assets/img/icons/checkmark-green-round.svg');
+            background-image: url('/img/icons/checkmark-green-round.svg');
           }
         }
       }
@@ -546,7 +558,7 @@ checkbox {
       .checkbox {
         input {
           &:checked~.icon {
-            background-image: url('/assets/img/icons/checkmark-yellow-round.svg');
+            background-image: url('/img/icons/checkmark-yellow-round.svg');
           }
         }
       }
@@ -556,7 +568,7 @@ checkbox {
       .checkbox {
         input {
           &:checked~.icon {
-            background-image: url('/assets/img/icons/checkmark-orange-round.svg');
+            background-image: url('/img/icons/checkmark-orange-round.svg');
           }
         }
       }
@@ -566,7 +578,7 @@ checkbox {
       .checkbox {
         input {
           &:checked~.icon {
-            background-image: url('/assets/img/icons/checkmark-red-round.svg');
+            background-image: url('/img/icons/checkmark-red-round.svg');
           }
         }
       }
@@ -606,7 +618,7 @@ checkbox {
     display: none;
 
     &:checked~.icon {
-      background-image: url('/assets/img/icons/checkbox-check.svg');
+      background-image: url('/img/icons/checkbox-check.svg');
       background-position: center;
       background-repeat: no-repeat;
       background-size: 1.46875rem;
@@ -702,7 +714,7 @@ collapsable.keyPerson {
       top: 0rem;
       height: 2.125em;
       width: 2.125em;
-      background: url('/assets/img/icons/chrevon-down-green.svg') 0 / 2.125rem no-repeat;
+      background: url('/img/icons/chrevon-down-green.svg') 0 / 2.125rem no-repeat;
       transition: 250ms ease-in;
     }
 
@@ -714,7 +726,7 @@ collapsable.keyPerson {
       top: 0.25rem;
       height: 2.625em;
       width: 2.625em;
-      background: url('/assets/img/icons/chrevon-down-green.svg') 0 / 2.625rem no-repeat;
+      background: url('/img/icons/chrevon-down-green.svg') 0 / 2.625rem no-repeat;
     }
 
     &.draggable {

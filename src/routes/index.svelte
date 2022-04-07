@@ -1,24 +1,27 @@
 <script context="module" lang="ts">
 	export const prerender = true;
+	export async function load({params, fetch}) {
+		return {
+			stuff: {
+				title: 'Dashboard'
+			}
+		}
+	}
 </script>
 
 <script lang="ts">
-	import FormElement from "$lib/FormElement.svelte";
-	let testVariable = [];
+	import { page } from '$app/stores';
+	import { globalStore } from '$lib/stores';
+
+	globalStore.subscribe(data => {
+		console.log('data',data);
+	})
+	page.subscribe(page => {
+		// STORE ON PAGE CHANGE
+		
+	})
 </script>
 
-<svelte:head>
-	<title>Spravato Navigator | Dashboard</title>
-</svelte:head>
-
-<section>
-	<FormElement 
-		id="Test input"
-		placeholder="Multi Select Placeholder"
-		label="Test"
-		type="multi-select"
-		value={testVariable}
-		styling={{underlined: true}}
-		options={[{label: 'opt 1', value: 'val1'}]}
-	/>
+<section class="grid">
+	
 </section>
