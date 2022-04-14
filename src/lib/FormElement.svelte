@@ -1,13 +1,8 @@
 <script lang="ts">
-import { createEventDispatcher } from "svelte";
-
-
-    interface Option {
-        label: string;
-        value?: string | number;
-    };
+    import { createEventDispatcher } from "svelte";
+    import type { Option } from '$lib/types/generic.type'; 
     export let id: string;
-    export let label: string;
+    export let label: string = null;
     export let type: string = 'text';
     const simpleInputTypes: string[] = ['text','number','date','datetime-local','time','email','tel','url','search','password','range'];
     const selectInputTypes: string[] = ['select', 'multi-select'];
@@ -24,6 +19,7 @@ import { createEventDispatcher } from "svelte";
     export let disabled: boolean = false;
     export let options: Option[] = [];
     export let value;
+    export let checked: boolean = false;
     export let debug: boolean = false;
     export let styling: {
         underlined: boolean;
@@ -71,7 +67,7 @@ import { createEventDispatcher } from "svelte";
         switch(type){
             case 'url':
                 // URL HAS TO START WITH HTTP OR HTTPS
-                if(!value.startsWith("http://") && !value.startsWith("https://")){
+                if(value && !value.startsWith("http://") && !value.startsWith("https://")){
                     value = "https://"+value;
                     e.target.value = value;
                 }
@@ -102,7 +98,7 @@ import { createEventDispatcher } from "svelte";
             {@html label}
         </h3>
     {/if}
-    <div class="input-container">
+    <div class="input-container input-type-{type}">
         {#if simpleInputTypes.includes(type)}
             <input 
             class:error="{!valid}"
@@ -182,6 +178,14 @@ import { createEventDispatcher } from "svelte";
                     {/each}
                 </div>
                 {/if}
+            {/if}
+        {/if}
+        {#if type === 'checkbox'}
+            <input 
+            class:error="{!valid}"
+            {id} name={id} type="checkbox" {required} {checked} {disabled} value={value?value:null} {readonly}/>
+            {#if label}
+                <label for={id}>{label}</label>
             {/if}
         {/if}
         {#if debug}

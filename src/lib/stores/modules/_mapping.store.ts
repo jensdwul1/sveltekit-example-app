@@ -1,5 +1,5 @@
-import type { GenericStore } from "./_generic.store";
-import { StoreIdentifier } from "./_storeIdentifier.enum";
+import type { GenericStore } from "$lib/stores/_generic.store";
+import { StoreIdentifier } from "$lib/stores/_storeIdentifier.enum";
 
 export interface Address {
     street: string;
@@ -32,4 +32,6 @@ export class MappingStore implements GenericStore, HospitalEntity {
         city: undefined,
         contactInformation: {}
     };
+    locked: boolean;
+    disabled: boolean;
 }

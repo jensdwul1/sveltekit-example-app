@@ -13,5 +13,6 @@ declare namespace App {
 
 	interface Stuff {
 		title: string;
+		locked: boolean;
 	}
 }

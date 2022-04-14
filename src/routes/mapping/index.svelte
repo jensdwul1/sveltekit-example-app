@@ -10,10 +10,11 @@
 <script lang="ts">	
 	import FormElement from "$lib/FormElement.svelte";
 	import { globalStore } from "$lib/stores";
-	import { MappingStore } from "$lib/stores/_mapping.store";
+	import { MappingStore } from "$lib/stores/modules/_mapping.store";
+	import { StoreIdentifier } from "$lib/stores/_storeIdentifier.enum";
 	let mappingStore: MappingStore;
 	globalStore.subscribe(data => {
-		mappingStore = data.find(entity => entity.id === 'mapping');
+		mappingStore = data.find(entity => entity.id === StoreIdentifier.MAPPING);
 		if(!mappingStore){
 			globalStore.add(new MappingStore());
 		}
