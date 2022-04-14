@@ -13,7 +13,8 @@
 	import { peopleStore, peopleOptions } from "$lib/stores/_people.store";
 	import { StakeholderStore } from "$lib/stores/modules/_stakeholders.store";
 	import { StoreIdentifier } from "$lib/stores/_storeIdentifier.enum";
-import type { Option } from "$lib/types/generic.type";
+	import type { Option } from "$lib/types/generic.type";
+	import { PersonRoleOptions } from "$lib/types/people.type";
 	let moduleStore: StakeholderStore;
 	globalStore.subscribe(data => {
 		moduleStore = data.find(entity => entity.id === StoreIdentifier.STAKEHOLDERS);
@@ -23,7 +24,6 @@ import type { Option } from "$lib/types/generic.type";
 	})
 	
 	const add = () => {
-		console.log('Stakeholders add')
 		moduleStore.stakeholders = [...moduleStore.stakeholders,null];
 	}
 	const remove = (index: number) => {
@@ -34,8 +34,8 @@ import type { Option } from "$lib/types/generic.type";
 		return $peopleStore.find((person => person.id === identifier));
 	}
 
-	const filteredPeopleOptions = (): Option[] => {
-		return peopleOptions.filter((person) => !moduleStore.stakeholders.includes(person.value))
+	const filteredPeopleOptions = (p?: string): Option[] => {
+		return peopleOptions.filter((person) => person.value === p || !moduleStore.stakeholders.includes(person.value))
 	}
 </script>
 <div class="grid">
@@ -47,8 +47,11 @@ import type { Option } from "$lib/types/generic.type";
 			label="Stakeholder"
 			type="select"
 			value={person}
-			options={filteredPeopleOptions()}
+			options={filteredPeopleOptions(person)}
 			on:change={(e) => {
+				if(person === moduleStore.primaryStakeholder){
+					moduleStore.primaryStakeholder = null;
+				}
 				person = e.detail.value;
 			}}
 			styling={{underlined: true, class: 'span-6'}}
@@ -58,15 +61,29 @@ import type { Option } from "$lib/types/generic.type";
 			label="Is this the primary Stakeholder?"
 			type="checkbox"
 			value={person}
+			disabled={!!!person}
 			styling={{underlined: true, class: 'span-6'}}
 			checked={moduleStore.primaryStakeholder === person}
 			on:change={(e) => {
 				moduleStore.primaryStakeholder = e.detail.value;
-				console.log('moduleStore.primaryStakeholder',moduleStore.primaryStakeholder);
 			}}
 			/>
-			<div class="form-element span-3">
-				<h3>&nbsp;</h3>
+			{#if getPerson(person)}
+				<div class="form-element span-6">
+					<h3 class="underlined">Roles</h3>
+					<div class="select--multi-answers">
+						{#each PersonRoleOptions as option}
+							{#if getPerson(person).roles.includes(option.value)}
+								<button type="button" class="select--multi-answers-answer">
+									<span>{option.label}</span>
+								</button>
+							{/if}
+						{/each}
+					</div>
+				</div>
+			{/if}
+			<div class="form-element span-6">
+				<h3 class="underlined">&nbsp;</h3>
 				<button class="button dark" on:click={() => remove(index)}>Delete</button>
 			</div>
 			<hr class="span-12">
@@ -74,3 +91,9 @@ import type { Option } from "$lib/types/generic.type";
 	{/each}
 	<button class="button primary-shade span-12" on:click={add}>Add a Stakeholder</button>
 </div>
+
+<style lang="scss">
+	.primary-stakeholder {
+		outline: lightgreen;
+	}
+</style>

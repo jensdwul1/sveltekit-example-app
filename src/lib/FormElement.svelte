@@ -62,6 +62,10 @@
         : e.target.value;
         e.target.value = value;
     };
+    const handleCheckboxInput = e => {
+        const checkState = e.target && e.target.checked?value:null;
+        dispatch('change', {value:checkState});
+    }
     const validate = (e) => {
         // Type validation
         switch(type){
@@ -183,6 +187,7 @@
         {#if type === 'checkbox'}
             <input 
             class:error="{!valid}"
+            on:change={handleCheckboxInput}
             {id} name={id} type="checkbox" {required} {checked} {disabled} value={value?value:null} {readonly}/>
             {#if label}
                 <label for={id}>{label}</label>
