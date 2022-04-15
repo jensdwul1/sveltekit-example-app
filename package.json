@@ -2,8 +2,8 @@
   "name": "example-app",
   "version": "0.0.1",
   "scripts": {
-    "dev": "svelte-kit dev",
-    "swa": "swa start",
+    "dev": "svelte-kit dev --host",
+    "swa": "swa start http://localhost:3000 --run 'npm run dev' --open",
     "build": "svelte-kit build",
     "package": "svelte-kit package",
     "preview": "svelte-kit preview",

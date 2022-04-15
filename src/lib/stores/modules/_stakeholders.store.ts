@@ -10,4 +10,6 @@ export class StakeholderStore implements GenericStore {
     primaryStakeholder: string;
     locked: boolean;
     disabled: boolean;
+    created_dt: Date = new Date();
+    updated_dt: Date = new Date();
 }

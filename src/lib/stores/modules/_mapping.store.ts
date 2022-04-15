@@ -1,4 +1,4 @@
-import type { GenericStore } from "$lib/stores/_generic.store";
+import { GenericStore } from "$lib/stores/_generic.store";
 import { StoreIdentifier } from "$lib/stores/_storeIdentifier.enum";
 
 export interface Address {
@@ -21,7 +21,7 @@ export interface HospitalEntity {
     address: Address;
 }
 
-export class MappingStore implements GenericStore, HospitalEntity {
+export class MappingStore extends GenericStore implements HospitalEntity {
     id: StoreIdentifier = StoreIdentifier.MAPPING;
     hospitalId: string;
     name: string;
@@ -32,6 +32,4 @@ export class MappingStore implements GenericStore, HospitalEntity {
         city: undefined,
         contactInformation: {}
     };
-    locked: boolean;
-    disabled: boolean;
 }

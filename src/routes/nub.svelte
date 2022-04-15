@@ -23,7 +23,7 @@
 	})
 	
 	const add = () => {
-		const newPerson = new Person();
+		const newPerson = new Person({origin: 'nub.index'});
 		peopleStore.add(newPerson);
 		moduleStore.staff = [...moduleStore.staff, newPerson.id];
 	}
