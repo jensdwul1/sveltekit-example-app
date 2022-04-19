@@ -1,9 +1,31 @@
 <script context="module" lang="ts">
-	export const prerender = true;
+	import { browser } from '$app/env';
+	import { v4 as uuid } from '@lukeed/uuid';
 	export async function load({params, fetch}) {
-		return {
-			stuff: {
-				title: 'Dashboard'
+		try {
+			const entityId = (browser && localStorage.getItem("entityId") || uuid())
+			if(browser){
+				localStorage.setItem('entityId', entityId);
+			}
+			const response = await fetch('/data', {
+				method: 'GET',
+				credentials: 'same-origin',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({id: entityId})
+			});
+			return {
+				props: {...(await response.json())},
+				stuff: {
+					title: 'Dashboard'
+				}
+			}
+		} catch (error) {
+			return {
+				stuff: {
+					title: 'Dashboard'
+				}
 			}
 		}
 	}
@@ -27,6 +49,7 @@
 		});
 	}
 	globalStore.subscribe(data => {
+		
 		processDataScopes(data);
 	})
 	page.subscribe(page => {
