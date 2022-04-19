@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
     import { Navigation } from './navigation.options';
-    const clientVersion = __version__;
+    const clientVersion: string = __version__;
 </script>
 
 <aside class="app-navigation" id="app-nav">

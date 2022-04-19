@@ -15,6 +15,7 @@
     "format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. ."
   },
   "devDependencies": {
+    "@azure/cosmos": "^3.9.1",
     "@playwright/test": "^1.20.0",
     "@sveltejs/adapter-auto": "next",
     "@sveltejs/kit": "next",
