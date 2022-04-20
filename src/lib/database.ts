@@ -81,10 +81,8 @@ const updateData = async (entityId: string, data: GenericStore[]) => {
     const { item } = await container.item(entityId).replace(payload);
     const result = await item.read();
     if(result){
-        console.log('Update completed',result.resource);
         return result.resource;
     } else {
-        console.log('Update Failed', payload.id);
         return payload;
     }
 }
