@@ -13,17 +13,3 @@ export const globalStore = (() => {
     }
   }
 })();
-
-export const initializeStore = (identifier: string) => {
-  globalStore.subscribe(async (globalData) => {
-    const response = await fetch('/data', {
-      method: 'POST',
-      credentials: 'same-origin',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ id: identifier, stores: globalData })
-    });
-    await response.json();
-  });
-}

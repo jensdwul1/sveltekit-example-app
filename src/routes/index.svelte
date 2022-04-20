@@ -1,31 +1,8 @@
 <script context="module" lang="ts">
-	import { browser } from '$app/env';
-	import { v4 as uuid } from '@lukeed/uuid';
 	export async function load({params, fetch}) {
-		try {
-			const entityId = (browser && localStorage.getItem("entityId") || uuid())
-			if(browser){
-				localStorage.setItem('entityId', entityId);
-			}
-			const response = await fetch('/data', {
-				method: 'GET',
-				credentials: 'same-origin',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({id: entityId})
-			});
-			return {
-				props: {...(await response.json())},
-				stuff: {
-					title: 'Dashboard'
-				}
-			}
-		} catch (error) {
-			return {
-				stuff: {
-					title: 'Dashboard'
-				}
+		return {
+			stuff: {
+				title: 'Dashboard'
 			}
 		}
 	}
@@ -37,6 +14,7 @@
 	import type { GenericStore } from '$lib/stores/_generic.store';
 	import { peopleStore } from '$lib/stores/_people.store';
 	import { StoreIdentifier } from "$lib/stores/_storeIdentifier.enum";
+
 	import Block from './dashboard/block.svelte';
 	let dataStores;
 	const getPersonById = (identifier: string) => {
@@ -49,13 +27,12 @@
 		});
 	}
 	globalStore.subscribe(data => {
-		
 		processDataScopes(data);
 	})
 	page.subscribe(page => {
 		// STORE ON PAGE CHANGE
-		
 	})
+		
 </script>
 
 <section class="grid">

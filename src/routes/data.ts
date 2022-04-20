@@ -1,13 +1,16 @@
 import db from '$lib/database';
 
 /** @type {import('./data').RequestHandler} */
-export async function get({ params }) {
+export async function get({ url }) {
+    const id: string = url.searchParams.get('id');
     // `params.id` comes from [id].js
-    const item = await db.get(params.id);
-    if (item) {
-      return {
-        body: { item }
-      };
+    if(id){
+      const item = await db.get(id);
+      if (item) {
+        return {
+          body: { ...item }
+        };
+      }
     }
    
     return {
@@ -16,15 +19,35 @@ export async function get({ params }) {
 }
 
 /** @type {import('./data').RequestHandler} */
-export async function post({params}) {
-  const item = await db.post(params.id, params.stores);
+export async function post({request}) {
+  
+  const item = (await db.post(request.stores));
   if (item) {
     return {
+      status: 201,
       body: { item }
     };
   }
- 
+  
   return {
-    status: 500
+    status: 400,
+    body: { message: 'something wrong, brain no work' }
+  };
+}
+
+/** @type {import('./data').RequestHandler} */
+export async function put({request}) {
+  const params = await request.json();
+  const item = await db.put(params.id, params.stores);
+  if (item) {
+    return {
+      status: 202,
+      body: { item }
+    };
+  }
+  
+  return {
+    status: 400,
+    body: { message: 'something wrong, brain no work' }
   };
 }

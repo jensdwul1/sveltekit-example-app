@@ -8,12 +8,12 @@ const secret = import.meta.env.VITE_KEY as string;
 const databaseId = import.meta.env.VITE_DATABASE as string;
 const containerId = import.meta.env.VITE_CONTAINER as string;
 
-console.table({
-    endpoint,
-    secret,
-    databaseId,
-    containerId
-});
+// console.table({
+//     endpoint,
+//     secret,
+//     databaseId,
+//     containerId
+// });
 
 const cosmosOptions: CosmosClientOptions = {
   endpoint,
@@ -22,6 +22,8 @@ const cosmosOptions: CosmosClientOptions = {
 };
 
 const cosmosClient = new CosmosClient(cosmosOptions);
+const database = cosmosClient.database(databaseId);
+const container = database.container(containerId);
 
 const createDatabase = async () => {
     const { database } = await cosmosClient.databases.createIfNotExists({
@@ -39,40 +41,58 @@ const initializeCosmos = async () => {
     createDatabase();
 }
 
-const getDataFromCosmos = async (entityId: string) => {
-    const resource: MedicalEntity = await cosmosClient
-    .database(databaseId)
-    .container(containerId)
-    .item(entityId);
-    if(resource){
-        console.log('Resource',resource);
-    }
-    return resource;
+const getData = async (entityId: string) => {
+    const querySpec = {
+        query: 'SELECT * FROM root r WHERE r.id = @id',
+        parameters: [
+          {
+            name: '@id',
+            value: entityId
+          }
+        ]
+      }
+    const {resources} = await container.items.query(querySpec).fetchAll();
+    return resources && resources.length?resources[0]:{};
 }
 
+const insertData = async (data: GenericStore[]) => {
+    // DB Payload
+    const payload: MedicalEntity = {
+        stores: data
+    }
+    // UPDATE COSMOS DB
+    const response =  (await container.items.create(payload)).resource;
 
-const upsertDataToCosmos = async (entityId: string, data: GenericStore[]) => {
+    if(response){
+        console.log('Save completed',response.id);
+    } else {
+        console.log('Save Failed', payload.id);
+    }
+    return response;
+}
+
+const updateData = async (entityId: string, data: GenericStore[]) => {
     // DB Payload
     const payload: MedicalEntity = {
         id: entityId,
         stores: data
     }
     // UPDATE COSMOS DB
-    const { item } =  await cosmosClient
-    .database(databaseId)
-    .container(containerId)
-    .items.upsert(payload);
-    if(item){
-        console.log('Save completed',item.id);
+    const { item } = await container.item(entityId).replace(payload);
+    const result = await item.read();
+    if(result){
+        console.log('Update completed',result.resource);
+        return result.resource;
     } else {
-        console.log('Save Failed', payload.id);
+        console.log('Update Failed', payload.id);
+        return payload;
     }
-    return item;
 }
 
 export default {
     client: cosmosClient,
     init: initializeCosmos,
-    get: getDataFromCosmos,
-    post: upsertDataToCosmos
+    get: getData,
+    post: insertData,
+    put: updateData
 }
