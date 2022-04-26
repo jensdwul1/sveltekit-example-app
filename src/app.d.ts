@@ -15,4 +15,10 @@ declare namespace App {
 		title: string;
 		locked: boolean;
 	}
+	interface ImportMetaEnv {
+		readonly VITE_ENDPOINT: string;
+		readonly VITE_KEY: string;
+		readonly VITE_DATABASE: string;
+		readonly VITE_CONTAINER: string;
+	}
 }

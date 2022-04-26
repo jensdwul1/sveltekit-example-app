@@ -22,7 +22,9 @@ export const PersonRoleOptions = [
 ]
 
 export interface PersonType {
-    id: string;
+    id?: string;
+    origin: string;
+    title?: string;
     firstName?: string;
     lastName?: string;
     roles?: PersonRole[];
@@ -30,6 +32,8 @@ export interface PersonType {
 
 export class Person implements PersonType {
     id: string = uuid();
+    origin: string;
+    title?: string;
     firstName?: string;
     lastName?: string;
     roles?: PersonRole[] = [];

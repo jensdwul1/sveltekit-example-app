@@ -1,4 +1,4 @@
-import type { GenericStore } from "$lib/stores/_generic.store";
+import { GenericStore } from "$lib/stores/_generic.store";
 import { StoreIdentifier } from "$lib/stores/_storeIdentifier.enum";
 
 export enum AccountPhase {
@@ -9,9 +9,7 @@ export enum AccountPhase {
     ROUTINE = 'routine'
 }
 
-export class AccountPhasesStore implements GenericStore {
+export class AccountPhasesStore extends GenericStore {
     id: StoreIdentifier = StoreIdentifier.ACCOUNTPHASES;
     currentPhase: AccountPhase;
-    locked: boolean;
-    disabled: boolean;
 }

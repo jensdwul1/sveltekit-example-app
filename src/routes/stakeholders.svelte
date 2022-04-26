@@ -94,6 +94,8 @@
 
 <style lang="scss">
 	.primary-stakeholder {
-		outline: lightgreen;
+		background-color: rgba(144, 238, 144, 0.25);
+		padding: 1rem;
+		border-radius: 0.25rem;
 	}
 </style>

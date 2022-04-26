@@ -13,6 +13,16 @@ This app will be a small scale reproduction of an existing application (Spravato
 
 Install dependencies with `npm install` (or `pnpm install` or `yarn`)
 
+## Prerequirements
+First you'll need to make a cosmos database in azure if you wish to store your data.
+You'll need to make an .env file on the root level containing the following variables
+```
+VITE_ENDPOINT=CosmosDatabaseEndpointUrl
+VITE_KEY=CosmosAccessKey
+VITE_DATABASE=DatabaseName
+VITE_CONTAINER=ContainerName
+```
+
 ## Development
 
 Start a development server:

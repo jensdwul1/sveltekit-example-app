@@ -14,7 +14,6 @@ export const peopleStore = (() => {
     }
   }
 })();
-
 export let peopleOptions: Option[] = [];
 peopleStore.subscribe((peopleCollection) => {
   peopleOptions = peopleCollection.map(person => {

@@ -2,8 +2,8 @@
   "name": "example-app",
   "version": "0.0.1",
   "scripts": {
-    "dev": "svelte-kit dev",
-    "swa": "swa start",
+    "dev": "svelte-kit dev --host",
+    "swa": "swa start http://localhost:3000 --run 'npm run dev' --open",
     "build": "svelte-kit build",
     "package": "svelte-kit package",
     "preview": "svelte-kit preview",
@@ -15,6 +15,7 @@
     "format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. ."
   },
   "devDependencies": {
+    "@azure/cosmos": "^3.9.1",
     "@playwright/test": "^1.20.0",
     "@sveltejs/adapter-auto": "next",
     "@sveltejs/kit": "next",
