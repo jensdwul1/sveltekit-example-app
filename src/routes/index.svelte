@@ -41,14 +41,14 @@
 			<h3 slot="header">
 				Hospital :: {dataStores[StoreIdentifier.MAPPING].name}
 			</h3>
-			<p slot="content">
+			<p slot="content" class="m-none">
 				{#if dataStores[StoreIdentifier.MAPPING].address}
 					Street: {dataStores[StoreIdentifier.MAPPING].address.street} {dataStores[StoreIdentifier.MAPPING].address.number}<br>
 					City: {dataStores[StoreIdentifier.MAPPING].address.city}<br>
 					Postal: {dataStores[StoreIdentifier.MAPPING].address.postalcode}
 				{/if}
 			</p>
-			<p slot="footer">
+			<p slot="footer" class="m-none">
 				{#if dataStores[StoreIdentifier.MAPPING].address}
 					Phone: {dataStores[StoreIdentifier.MAPPING].address.contactInformation.telephone}<br>
 					Website: <a href={dataStores[StoreIdentifier.MAPPING].address.contactInformation.website}>{dataStores[StoreIdentifier.MAPPING].address.contactInformation.website}</a>
@@ -67,7 +67,18 @@
 					</p>
 				{/each}
 			</div>
-			<p slot="footer"></p>
+		</Block>
+	{/if}
+	{#if dataStores[StoreIdentifier.NUB]}
+		<Block styling="{{class:'span-6'}}">
+			<h3 slot="header">NUB Staff</h3>
+			<div slot="content">
+				{#each dataStores[StoreIdentifier.NUB].staff as person}
+					<p>
+						{getPersonById(person).firstName + (getPersonById(person).lastName?' '+getPersonById(person).lastName:'')}
+					</p>
+				{/each}
+			</div>
 		</Block>
 	{/if}
 </section>

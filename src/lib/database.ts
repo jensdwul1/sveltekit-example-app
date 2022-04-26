@@ -1,5 +1,7 @@
 import { CosmosClient, type CosmosClientOptions } from "@azure/cosmos";
 import type { GenericStore } from "$lib/stores/_generic.store";
+import type { PersonType } from "./types/people.type";
+import type { DataEntryResponse } from "./types/data-entry.type";
 /**
  * Initialize Database Connect
  */
@@ -20,8 +22,7 @@ const cosmosOptions: CosmosClientOptions = {
   key: secret,
   userAgentSuffix: 'CosmosDBSvelte'
 };
-
-const cosmosClient = new CosmosClient(cosmosOptions);
+const cosmosClient = secret?new CosmosClient(cosmosOptions):null;
 const database = cosmosClient.database(databaseId);
 const container = database.container(containerId);
 
@@ -30,11 +31,6 @@ const createDatabase = async () => {
         id: databaseId
     })
     console.log(`Created database:\n${database.id}\n`)
-}
-
-interface MedicalEntity {
-    id?: string;
-    stores?: GenericStore[];
 }
 
 const initializeCosmos = async () => {
@@ -55,10 +51,11 @@ const getData = async (entityId: string) => {
     return resources && resources.length?resources[0]:{};
 }
 
-const insertData = async (data: GenericStore[]) => {
+const postData = async (data: GenericStore[], people: PersonType[]) => {
     // DB Payload
-    const payload: MedicalEntity = {
-        stores: data
+    const payload: DataEntryResponse = {
+        stores: data,
+        people
     }
     // UPDATE COSMOS DB
     const response =  (await container.items.create(payload)).resource;
@@ -71,11 +68,12 @@ const insertData = async (data: GenericStore[]) => {
     return response;
 }
 
-const updateData = async (entityId: string, data: GenericStore[]) => {
+const updateData = async (entityId: string, data: GenericStore[], people: PersonType[]) => {
     // DB Payload
-    const payload: MedicalEntity = {
+    const payload: DataEntryResponse = {
         id: entityId,
-        stores: data
+        stores: data,
+        people
     }
     // UPDATE COSMOS DB
     const { item } = await container.item(entityId).replace(payload);
@@ -91,6 +89,6 @@ export default {
     client: cosmosClient,
     init: initializeCosmos,
     get: getData,
-    post: insertData,
+    post: postData,
     put: updateData
 }

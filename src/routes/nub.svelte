@@ -13,15 +13,8 @@
 	import { NubStore } from "$lib/stores/modules/_nub.store";
 	import { peopleStore } from "$lib/stores/_people.store";
 	import { StoreIdentifier } from "$lib/stores/_storeIdentifier.enum";
-	import { Person, PersonRoleOptions } from "$lib/types/people.type";
-	let moduleStore: NubStore;	;
-	globalStore.subscribe(data => {
-		moduleStore = data.find(entity => entity.id === StoreIdentifier.NUB);
-		if(!moduleStore){
-			globalStore.add(new NubStore());
-		}
-	})
-	
+	import { Person, PersonRoleOptions, type PersonType } from "$lib/types/people.type";
+	let moduleStore: NubStore;
 	const add = () => {
 		const newPerson = new Person({origin: 'nub.index'});
 		peopleStore.add(newPerson);
@@ -33,48 +26,69 @@
 		// REMOVE FROM MODULE STORE
 		moduleStore.staff = moduleStore.staff.filter((p) => p !== identifier);
 	}
+	
+	const getPersonById = (identifier: string) => {
+		return $peopleStore.find(person => person.id === identifier);
+	}
+
+	const filterStaff = (identifiers: string[]) => {
+		return identifiers.filter((identifier) => {
+			return !!getPersonById(identifier);
+		})
+	}
+	globalStore.subscribe(data => {
+		moduleStore = data.find(entity => entity.id === StoreIdentifier.NUB);
+		if(!moduleStore){
+			globalStore.add(new NubStore());
+		}
+	})
+	peopleStore.subscribe(() => {
+		moduleStore.staff = filterStaff(moduleStore.staff);
+	})
 </script>
 <div class="grid">
 	<h2 class="span-12">Medical Professionals</h2>
-	{#each $peopleStore as person, index}
-	<FormElement
-		id={'FirstName'+person.id}
-		placeholder="Enter the first name"
-		label="First Name"
-		type="text"
-		value={person.firstName}
-		on:change={(e) => {
-			person.firstName = e.detail.value;
-		}}
-		styling={{underlined: true, class: 'span-6'}}
-	/>
-	<FormElement
-		id={'LastName'+person.id}
-		placeholder="Enter the last name"
-		label="Last Name"
-		type="text"
-		value={person.lastName}
-		on:change={(e) => {
-			person.lastName = e.detail.value;
-		}}
-		styling={{underlined: true, class: 'span-6'}}
-	/>
-	<hr class="span-12">
-	<FormElement 
-		id={'Roles-'+index}
-		placeholder="Please select the roles of this person"
-		label="Roles"
-		type="multi-select"
-		value={person.roles}
-		options={PersonRoleOptions}
-		on:change={(e) => {
-			person.roles = e.detail.value;
-		}}
-		styling={{underlined: true, class: 'span-12'}}
-	/>
-	<hr class="span-12">
-	<button class="button dark span-6" on:click={() => remove(person.id)}>Delete this Staff member</button>
-	<hr class="span-12">
+	{#each moduleStore.staff as person, index}
+		{#if getPersonById(person) !== null}
+			<FormElement
+				id={'FirstName'+person}
+				placeholder="Enter the first name"
+				label="First Name"
+				type="text"
+				value={getPersonById(person).firstName}
+				on:change={(e) => {
+					getPersonById(person).firstName = e.detail.value;
+				}}
+				styling={{underlined: true, class: 'span-6'}}
+			/>
+			<FormElement
+				id={'LastName'+person}
+				placeholder="Enter the last name"
+				label="Last Name"
+				type="text"
+				value={getPersonById(person).lastName}
+				on:change={(e) => {
+					getPersonById(person).lastName = e.detail.value;
+				}}
+				styling={{underlined: true, class: 'span-6'}}
+			/>
+			<hr class="span-12">
+			<FormElement 
+				id={'Roles-'+index}
+				placeholder="Please select the roles of this person"
+				label="Roles"
+				type="multi-select"
+				value={getPersonById(person).roles}
+				options={PersonRoleOptions}
+				on:change={(e) => {
+					getPersonById(person).roles = e.detail.value;
+				}}
+				styling={{underlined: true, class: 'span-12'}}
+			/>
+			<hr class="span-12">
+			<button class="button dark span-6" on:click={() => remove(person)}>Delete this Staff member</button>
+			<hr class="span-12">
+		{/if}
 	{/each}
 	<button class="button primary-shade span-12" on:click={add}>Add a Staff member</button>
 </div>

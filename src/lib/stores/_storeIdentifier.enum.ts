@@ -3,5 +3,6 @@ export enum StoreIdentifier {
     ACCOUNTPHASES = 'account-phases',
     STAKEHOLDERS = 'stakeholders',
     NUB = 'nub',
-    RMP = 'rmp'
+    RMP = 'rmp',
+    PEOPLE = 'people'
 }
