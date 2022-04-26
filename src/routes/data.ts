@@ -2,7 +2,7 @@ import db from '$lib/database';
 
 /** @type {import('./data').RequestHandler} */
 export async function get({ url }) {
-    if(db.client){
+    if(db && db.client){
       const id: string = url.searchParams.get('id');
       // `params.id` comes from [id].js
       if(id && id !== null && id !== 'null'){
@@ -23,7 +23,7 @@ export async function get({ url }) {
 /** @type {import('./data').RequestHandler} */
 export async function post({request}) {
   
-  if(db.client){
+  if(db && db.client){
     const params = await request.json();
     const item = (await db.post(params.stores, params.people));
     if (item) {
@@ -41,7 +41,7 @@ export async function post({request}) {
 
 /** @type {import('./data').RequestHandler} */
 export async function put({request}) {  
-  if(db.client){
+  if(db && db.client){
     const params = await request.json();
     const item = await db.put(params.id, params.stores, params.people);
     if (item) {

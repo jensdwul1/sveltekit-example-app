@@ -17,7 +17,7 @@ import { peopleStore } from '$lib/stores/_people.store';
 			const stores = $globalStore;
 			const people = $peopleStore;
 			const response = await postData('POST', stores, people);
-			if(browser && response){
+			if(browser && response && response.item){
 				localStorage.setItem('entityId', response.item.id);
 			}
 		} else {

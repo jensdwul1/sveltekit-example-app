@@ -5,10 +5,10 @@ import type { DataEntryResponse } from "./types/data-entry.type";
 /**
  * Initialize Database Connect
  */
-const endpoint = import.meta.env.VITE_ENDPOINT as string;
-const secret = import.meta.env.VITE_KEY as string;
-const databaseId = import.meta.env.VITE_DATABASE as string;
-const containerId = import.meta.env.VITE_CONTAINER as string;
+const endpoint = process.env.VITE_ENDPOINT as string;
+const secret = process.env.VITE_KEY as string;
+const databaseId = process.env.VITE_DATABASE as string;
+const containerId = process.env.VITE_CONTAINER as string;
 
 // console.table({
 //     endpoint,
@@ -23,11 +23,15 @@ const cosmosOptions: CosmosClientOptions = {
   userAgentSuffix: 'CosmosDBSvelte'
 };
 const cosmosClient = secret?new CosmosClient(cosmosOptions):null;
-const database = cosmosClient.database(databaseId);
-const container = database.container(containerId);
+const database = cosmosClient?.database(databaseId);
+const container = database?.container(containerId);
+
+if(!cosmosClient){
+    console.error('NO COSMOS CREDENTIALS SET ::  CLIENT CREATION FAILURE');
+}
 
 const createDatabase = async () => {
-    const { database } = await cosmosClient.databases.createIfNotExists({
+    const { database } = await cosmosClient?.databases?.createIfNotExists({
         id: databaseId
     })
     console.log(`Created database:\n${database.id}\n`)
@@ -47,7 +51,7 @@ const getData = async (entityId: string) => {
           }
         ]
       }
-    const {resources} = await container.items.query(querySpec).fetchAll();
+    const {resources} = await container?.items.query(querySpec).fetchAll();
     return resources && resources.length?resources[0]:{};
 }
 
@@ -58,7 +62,7 @@ const postData = async (data: GenericStore[], people: PersonType[]) => {
         people
     }
     // UPDATE COSMOS DB
-    const response =  (await container.items.create(payload)).resource;
+    const response =  (await container?.items.create(payload)).resource;
 
     if(response){
         console.log('Save completed',response.id);
@@ -76,8 +80,8 @@ const updateData = async (entityId: string, data: GenericStore[], people: Person
         people
     }
     // UPDATE COSMOS DB
-    const { item } = await container.item(entityId).replace(payload);
-    const result = await item.read();
+    const { item } = await container?.item(entityId).replace(payload);
+    const result = await item?.read();
     if(result){
         return result.resource;
     } else {
