@@ -5,10 +5,10 @@ import type { DataEntryResponse } from "./types/data-entry.type";
 /**
  * Initialize Database Connect
  */
-const endpoint = import.meta.env.VITE_ENDPOINT as string;
-const secret = import.meta.env.VITE_KEY as string;
-const databaseId = import.meta.env.VITE_DATABASE as string;
-const containerId = import.meta.env.VITE_CONTAINER as string;
+const endpoint = process.env.VITE_ENDPOINT as string;
+const secret = process.env.VITE_KEY as string;
+const databaseId = process.env.VITE_DATABASE as string;
+const containerId = process.env.VITE_CONTAINER as string;
 
 // console.table({
 //     endpoint,
