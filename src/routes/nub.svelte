@@ -8,6 +8,8 @@
 	}
 </script>
 <script lang="ts">
+import { goto } from "$app/navigation";
+
 	import FormElement from "$lib/FormElement.svelte";
 	import { globalStore } from "$lib/stores";
 	import { NubStore } from "$lib/stores/modules/_nub.store";
@@ -85,7 +87,9 @@
 				}}
 				styling={{underlined: true, class: 'span-12'}}
 			/>
+			
 			<hr class="span-12">
+			<button class="button primary-shade span-6" on:click={() => goto('/people/'+person)}>Profile</button>
 			<button class="button dark span-6" on:click={() => remove(person)}>Delete this Staff member</button>
 			<hr class="span-12">
 		{/if}

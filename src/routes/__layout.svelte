@@ -8,7 +8,7 @@
 	import { onMount } from 'svelte';
 	import { StoreIdentifier } from '$lib/stores/_storeIdentifier.enum';
 	import type { DataEntryResponse } from '$lib/types/data-entry.type';
-import { peopleStore } from '$lib/stores/_people.store';
+	import { peopleStore } from '$lib/stores/_people.store';
 
 	let entityId = browser && localStorage.getItem("entityId");
 	let hospitalName: string;
@@ -19,6 +19,7 @@ import { peopleStore } from '$lib/stores/_people.store';
 			const response = await postData('POST', stores, people);
 			if(browser && response && response.item){
 				localStorage.setItem('entityId', response.item.id);
+				entityId = response.item.id;
 			}
 		} else {
 			const response = await getData();
