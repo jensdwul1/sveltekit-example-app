@@ -8,8 +8,7 @@
 	}
 </script>
 <script lang="ts">
-import { goto } from "$app/navigation";
-
+	import { goto } from "$app/navigation";
 	import FormElement from "$lib/FormElement.svelte";
 	import { globalStore } from "$lib/stores";
 	import { NubStore } from "$lib/stores/modules/_nub.store";
