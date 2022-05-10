@@ -171,12 +171,14 @@ a.link {
 }
 
 .app {
+  --navigation-color: var(--app-color-primary);
+  --navigation-gradient: var(--app-color-primary-gradient-invert);
   &-wrapper {
     height: 100%;
   }
   &-navigation {
-    background-color: var(--app-color-primary);
-    background: var(--app-color-primary-gradient-invert);
+    background-color: var(--navigation-color);
+    background: var(--navigation-gradient);
     width: 8.25rem; // 4.6875
     height: 100%;
     padding: 1.275rem 0 0.9375rem 3.5rem;

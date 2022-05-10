@@ -94,3 +94,9 @@
 	</div>
 	
 </main>
+<style lang="scss">
+	.app {
+    	--navigation-color: pink;
+    	--navigation-gradient: linear-gradient(0deg, rgb(230, 162, 243) 0%, rgb(140, 65, 158) 100%)
+	}
+</style>

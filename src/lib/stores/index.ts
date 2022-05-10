@@ -1,5 +1,7 @@
 import { writable } from "svelte/store";
 
+export const exampleStore = writable(0);
+
 export const globalStore = (() => {
   const { subscribe, set, update} = writable([  ]);
   return {
