@@ -9,6 +9,8 @@
 	import { StoreIdentifier } from '$lib/stores/_storeIdentifier.enum';
 	import type { DataEntryResponse } from '$lib/types/data-entry.type';
 	import { peopleStore } from '$lib/stores/_people.store';
+	import { db } from '$lib/localDatabase';
+	import { v4 as uuid } from '@lukeed/uuid';
 
 	let entityId = browser && localStorage.getItem("entityId");
 	let hospitalName: string;
@@ -16,10 +18,10 @@
 		if(!entityId){
 			const stores = $globalStore;
 			const people = $peopleStore;
-			const response = await postData('POST', stores, people);
-			if(browser && response && response.item){
-				localStorage.setItem('entityId', response.item.id);
-				entityId = response.item.id;
+			const response = await postData('POST', stores, people) as string;
+			if(browser && response){
+				localStorage.setItem('entityId', response);
+				entityId = response;
 			}
 		} else {
 			const response = await getData();
@@ -35,12 +37,12 @@
 			}
 		}
 	})
-	afterNavigate((navigationEvent: { from: URL | null; to: URL}) => {
+	afterNavigate(async (navigationEvent: { from: URL | null; to: URL}) => {
 		if(navigationEvent.from && navigationEvent.to){
 			// UPDATE ON NAV
 			const stores = $globalStore;
 			const people = $peopleStore;
-			postData('PUT',stores, people, entityId);
+			await postData('PUT',stores, people, entityId);
 			hospitalName = getHospitalName();
 		} 
 	})
@@ -52,26 +54,35 @@
 		return data?data.name:'unknown'
 	}
 	const getData = async (): Promise<DataEntryResponse> => {
-		return await (await fetch('/data?'+new URLSearchParams({
-			id: entityId
-			}).toString(),{
-			method: 'GET',
-			credentials: 'same-origin',
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		})).json();
+		return await db.entries.get(entityId);
+		// return await (await fetch('/data?'+new URLSearchParams({
+		// 	id: entityId
+		// 	}).toString(),{
+		// 	method: 'GET',
+		// 	credentials: 'same-origin',
+		// 	headers: {
+		// 		'Content-Type': 'application/json'
+		// 	}
+		// })).json();
+		
 	}
 	const postData = async (method, stores, people, id?) => {
-		const response = await fetch('/data', {
-			method,
-			credentials: 'same-origin',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({ id, stores, people })
-		});
-		return await response.json();
+		// const response = await fetch('/data', {
+		// 	method,
+		// 	credentials: 'same-origin',
+		// 	headers: {
+		// 		'Content-Type': 'application/json'
+		// 	},
+		// 	body: JSON.stringify({ id, stores, people })
+		// });
+		// return await response.json();
+		if(!id){
+			id = uuid();
+		}
+		return db.entries.put({
+			id, stores, people
+		}, id);
+		
 	}
 </script>
 
