@@ -1,4 +1,4 @@
-import db from '$lib/database';
+import db from '$lib/cosmos';
 
 /** @type {import('./data').RequestHandler} */
 export async function get({ url }) {

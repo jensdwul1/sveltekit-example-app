@@ -21,7 +21,7 @@ if(!redundancy){
     credentials.containerId = process.env.VITE_CONTAINER as string;
 }
 const {endpoint,secret,databaseId,containerId} = credentials;
-
+let initialized = false;
 // console.table({
 //     endpoint,
 //     secret,
@@ -47,13 +47,21 @@ const createDatabase = async () => {
         id: databaseId
     })
     console.log(`Created database:\n${database.id}\n`)
+    initialized = true
+    return initialized;
 }
 
 const initializeCosmos = async () => {
-    createDatabase();
+    if(!initialized){
+        const isCreated = await createDatabase();
+        return isCreated;
+    } else {
+        return true;
+    }
 }
 
 const getData = async (entityId: string) => {
+    await initializeCosmos();
     const querySpec = {
         query: 'SELECT * FROM root r WHERE r.id = @id',
         parameters: [
@@ -63,6 +71,7 @@ const getData = async (entityId: string) => {
           }
         ]
       }
+
     const {resources} = await container?.items.query(querySpec).fetchAll();
     return resources && resources.length?resources[0]:{};
 }

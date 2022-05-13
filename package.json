@@ -40,6 +40,7 @@
     "@fontsource/fira-mono": "^4.5.0",
     "@lukeed/uuid": "^2.0.0",
     "cookie": "^0.4.1",
+    "dexie": "^3.2.2",
     "svelte-json-tree": "^1.0.0"
   }
 }
