@@ -12,11 +12,18 @@ export async function get({ url }) {
             body: { ...item }
           };
         }
+      } else {
+        return {
+          status: 200,
+          body: {
+            message: 'Welcome to the API endpoint.'
+          }
+        }
       }
-    }    
-   
+    }
     return {
-      status: 404
+      status: 404,
+      body: { message: 'Database is not available'}
     };
 }
 

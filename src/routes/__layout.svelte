@@ -54,32 +54,31 @@
 		return data?data.name:'unknown'
 	}
 	const getData = async (): Promise<DataEntryResponse> => {
-		return await db.entries.get(entityId);
-		// return await (await fetch('/data?'+new URLSearchParams({
-		// 	id: entityId
-		// 	}).toString(),{
-		// 	method: 'GET',
-		// 	credentials: 'same-origin',
-		// 	headers: {
-		// 		'Content-Type': 'application/json'
-		// 	}
-		// })).json();
+		const response = await (await fetch('/data?'+new URLSearchParams({
+			id: entityId
+			}).toString(),{
+			method: 'GET',
+			credentials: 'same-origin',
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		})).json();
+		return response.item ? response.item : await db.entries.get(entityId);
 		
 	}
 	const postData = async (method, stores, people, id?) => {
-		// const response = await fetch('/data', {
-		// 	method,
-		// 	credentials: 'same-origin',
-		// 	headers: {
-		// 		'Content-Type': 'application/json'
-		// 	},
-		// 	body: JSON.stringify({ id, stores, people })
-		// });
-		// return await response.json();
+		const response = await (await fetch('/data', {
+			method,
+			credentials: 'same-origin',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({ id, stores, people })
+		})).json();
 		if(!id){
 			id = uuid();
 		}
-		return db.entries.put({
+		return response ? response.item?.id : db.entries.put({
 			id, stores, people
 		}, id);
 		
